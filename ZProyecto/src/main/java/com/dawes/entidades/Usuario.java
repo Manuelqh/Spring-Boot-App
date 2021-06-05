@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -35,18 +37,29 @@ public class Usuario implements Serializable {
 	private Long id;
 	
 	@Column 
+	@NotBlank //Que no sea nulo y que no este vacio
+	@Size(min=5,max=8,message="No se cumple las reglas del tamano")
 	private String nombre;
+	
 	@Column 
+	@NotBlank
 	private String apellidos;
-	@Column(unique = true) 
+	
+	@Column(unique = true)
+	@NotBlank
 	private String email;
-	@Column(unique = true) 
+	
+	@Column(unique = true)
+	@NotBlank
 	private String username;
+	
 	@Column
+	@NotBlank
 	private String password;
 	
 	//No aparece en la BD, la omite
 	@Transient 
+	@NotBlank
 	private String confirmarPassword;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
